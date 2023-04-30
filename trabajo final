@@ -1,0 +1,280 @@
+/*Nombre: Maria Polanco  Matricula: 21-SIIN-1-030  Seccion: 0541*/
+
+SELECT * FROM beneficios
+SELECT * FROM departamentos
+SELECT * FROM empleados
+SELECT * FROM habilidades
+SELECT * FROM historial_laboral
+SELECT * FROM salarios
+
+
+
+
+
+USE [master]
+GO
+/****** Object:  Database [RecursosHumanos]    Script Date: 29/4/2023 4:15:05 p. m. ******/
+CREATE DATABASE [RecursosHumanos]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'RecursosHumanos', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER02\MSSQL\DATA\RecursosHumanos.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'RecursosHumanos_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER02\MSSQL\DATA\RecursosHumanos_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [RecursosHumanos] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [RecursosHumanos].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [RecursosHumanos] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [RecursosHumanos] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [RecursosHumanos] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [RecursosHumanos] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [RecursosHumanos] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET RECOVERY FULL 
+GO
+ALTER DATABASE [RecursosHumanos] SET  MULTI_USER 
+GO
+ALTER DATABASE [RecursosHumanos] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [RecursosHumanos] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [RecursosHumanos] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [RecursosHumanos] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [RecursosHumanos] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [RecursosHumanos] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'RecursosHumanos', N'ON'
+GO
+ALTER DATABASE [RecursosHumanos] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [RecursosHumanos] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [RecursosHumanos]
+GO
+/****** Object:  Table [dbo].[beneficios]    Script Date: 29/4/2023 4:15:06 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[beneficios](
+	[beneficio_id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[descripcion] [varchar](255) NULL,
+	[costo] [decimal](10, 2) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[beneficio_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[departamentos]    Script Date: 29/4/2023 4:15:06 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[departamentos](
+	[departamento_id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[descripcion] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[departamento_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[empleados]    Script Date: 29/4/2023 4:15:06 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[empleados](
+	[empleado_id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[apellido] [varchar](50) NOT NULL,
+	[direccion] [varchar](255) NULL,
+	[fecha_nacimiento] [date] NULL,
+	[fecha_contratacion] [date] NULL,
+	[identificacion] [varchar](20) NULL,
+	[departamento_id] [int] NOT NULL,
+	[salario_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[empleado_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[habilidades]    Script Date: 29/4/2023 4:15:06 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[habilidades](
+	[habilidad_id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[descripcion] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[habilidad_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[historial_laboral]    Script Date: 29/4/2023 4:15:06 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[historial_laboral](
+	[historial_id] [int] NOT NULL,
+	[fecha_inicio] [date] NOT NULL,
+	[fecha_fin] [date] NULL,
+	[puesto] [varchar](50) NOT NULL,
+	[descripcion] [varchar](255) NULL,
+	[empleado_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[historial_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[salarios]    Script Date: 29/4/2023 4:15:06 p. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[salarios](
+	[salario_id] [int] NOT NULL,
+	[salario] [decimal](10, 2) NOT NULL,
+	[fecha_inicio] [date] NOT NULL,
+	[fecha_fin] [date] NULL,
+	[empleado_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[salario_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (1, N'Lucas', N'visitante ', CAST(2000.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (2, N'Marcela', N'visitante', CAST(500.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (3, N'Juana', N'visitante', CAST(4000.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (4, N'Maria', N'visitante', CAST(6000.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (5, N'Sandy', N'visitante', CAST(2000.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (6, N'Luis', N'visitante', CAST(1000.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (7, N'Carla', N'visitante', CAST(2500.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (8, N'Claudia', N'visitante ', CAST(8000.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (9, N'Greicy', N'visitante', CAST(5000.00 AS Decimal(10, 2)))
+INSERT [dbo].[beneficios] ([beneficio_id], [nombre], [descripcion], [costo]) VALUES (10, N'Juan', N'visitante', CAST(800.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (1, N'Planificacion y organizacion del personal', N'Planificacion y organizacion del personal')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (2, N'Procesos de reclutamiento', N'Procesos de reclutamiento')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (3, N'Evaluacion del desempeño', N'Evaluacion del desempeño')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (4, N'Compensaciones y beneficios', N'Compensaciones y beneficios')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (5, N'Seguridad y ambiente laboral', N'Seguridad y ambiente laboral')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (6, N'Formacion y capacitacion de personal', N'Formacion y capacitacion de personal')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (7, N'Administracion', N'Administracion')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (8, N'Relaciones laborales', N'Relaciones laborales')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (9, N'Comunicacion interna', N'Comunicacion interna')
+INSERT [dbo].[departamentos] ([departamento_id], [nombre], [descripcion]) VALUES (10, N'Clima y satisfaccion laboral', N'Clima y satisfaccion laboral')
+GO
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (1, N'Sandy', N'Encarnacion', N'Distrito Nacional', CAST(N'1998-12-11' AS Date), CAST(N'2022-04-29' AS Date), N'002-0000000-1', 1, 1)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (2, N'Jhoelis', N'Polanco', N'AV. las americas', CAST(N'2019-03-20' AS Date), CAST(N'2019-04-20' AS Date), N'002-1111111-0', 2, 2)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (3, N'Maria', N'Turbi', N'Los rios', CAST(N'1997-04-08' AS Date), CAST(N'2019-05-21' AS Date), N'002-1111111-9', 3, 3)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (4, N'Jose', N'Rondon', N'Av. Nuñez de cacerez', CAST(N'1925-09-08' AS Date), CAST(N'2020-03-11' AS Date), N'001-0000000-8', 4, 4)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (5, N'Lewis ', N'Imbert', N'Los Alcarrizos', CAST(N'1996-03-08' AS Date), CAST(N'2018-02-12' AS Date), N'002-3333333-9', 5, 5)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (6, N'Francisco', N'Medina', N'Av. las americas', CAST(N'1990-07-09' AS Date), CAST(N'2017-08-11' AS Date), N'003-1212121-8', 6, 6)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (7, N'Ericka', N'Jesus', N'Los rios', CAST(N'1995-08-09' AS Date), CAST(N'2019-04-11' AS Date), N'002-2324252-9', 7, 7)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (8, N'Jhordalis', N'Familia', N'Los alcarrizos', CAST(N'1998-07-09' AS Date), CAST(N'2017-08-11' AS Date), N'002-0000000-5', 8, 8)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (9, N'Vielka', N'Alcantara', N'Los praditos', CAST(N'1997-05-05' AS Date), CAST(N'2018-07-12' AS Date), N'002-3333333-9', 9, 9)
+INSERT [dbo].[empleados] ([empleado_id], [nombre], [apellido], [direccion], [fecha_nacimiento], [fecha_contratacion], [identificacion], [departamento_id], [salario_id]) VALUES (10, N'Marianny', N'Ramirez', N'Villa mella', CAST(N'1999-09-09' AS Date), CAST(N'2020-07-06' AS Date), N'001-1111111-8', 10, 10)
+GO
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (1, N'Sandy', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (2, N'Jhoelis', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (3, N'Maria', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (4, N'Jose', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (5, N'Lewis', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (6, N'Francisco', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (7, N'Ericka', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (8, N'Jhordalis', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (9, N'Vielka', N'Activo')
+INSERT [dbo].[habilidades] ([habilidad_id], [nombre], [descripcion]) VALUES (10, N'Marianny', N'Activo')
+GO
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (1, CAST(N'2020-10-12' AS Date), CAST(N'2023-03-18' AS Date), N'1', N'1', 1)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (2, CAST(N'2019-03-20' AS Date), CAST(N'2023-04-18' AS Date), N'2', N'2', 2)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (3, CAST(N'2019-05-21' AS Date), CAST(N'2023-06-19' AS Date), N'3', N'3', 3)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (4, CAST(N'2020-03-11' AS Date), CAST(N'2021-08-12' AS Date), N'4', N'4', 4)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (5, CAST(N'2018-02-12' AS Date), CAST(N'2020-04-15' AS Date), N'5', N'5', 5)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (6, CAST(N'2017-02-09' AS Date), CAST(N'2023-02-15' AS Date), N'6', N'6', 6)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (7, CAST(N'2019-04-11' AS Date), CAST(N'2022-04-22' AS Date), N'7', N'7', 7)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (8, CAST(N'2017-08-11' AS Date), CAST(N'2020-09-08' AS Date), N'8', N'8', 8)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (9, CAST(N'2018-07-12' AS Date), CAST(N'2023-06-09' AS Date), N'9', N'9', 9)
+INSERT [dbo].[historial_laboral] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (10, CAST(N'2020-07-06' AS Date), CAST(N'2022-05-03' AS Date), N'10', N'10', 10)
+GO
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (1, CAST(20000.00 AS Decimal(10, 2)), CAST(N'2020-10-12' AS Date), CAST(N'2023-03-18' AS Date), 1)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (2, CAST(19000.00 AS Decimal(10, 2)), CAST(N'2019-03-20' AS Date), CAST(N'2023-04-18' AS Date), 2)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (3, CAST(15000.00 AS Decimal(10, 2)), CAST(N'2019-05-21' AS Date), CAST(N'2023-06-19' AS Date), 3)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (4, CAST(25000.00 AS Decimal(10, 2)), CAST(N'2020-03-11' AS Date), CAST(N'2021-08-12' AS Date), 4)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (5, CAST(30000.00 AS Decimal(10, 2)), CAST(N'2018-02-12' AS Date), CAST(N'2020-04-15' AS Date), 5)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (6, CAST(21000.00 AS Decimal(10, 2)), CAST(N'2017-02-09' AS Date), CAST(N'2023-02-15' AS Date), 6)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (7, CAST(22000.00 AS Decimal(10, 2)), CAST(N'2019-04-11' AS Date), CAST(N'2022-04-22' AS Date), 7)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (8, CAST(35000.00 AS Decimal(10, 2)), CAST(N'2017-08-11' AS Date), CAST(N'2020-09-08' AS Date), 8)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (9, CAST(27000.00 AS Decimal(10, 2)), CAST(N'2018-07-12' AS Date), CAST(N'2023-06-09' AS Date), 9)
+INSERT [dbo].[salarios] ([salario_id], [salario], [fecha_inicio], [fecha_fin], [empleado_id]) VALUES (10, CAST(30000.00 AS Decimal(10, 2)), CAST(N'2020-07-06' AS Date), CAST(N'2022-05-03' AS Date), 10)
+GO
+ALTER TABLE [dbo].[empleados]  WITH CHECK ADD FOREIGN KEY([departamento_id])
+REFERENCES [dbo].[departamentos] ([departamento_id])
+GO
+ALTER TABLE [dbo].[empleados]  WITH CHECK ADD FOREIGN KEY([salario_id])
+REFERENCES [dbo].[salarios] ([salario_id])
+GO
+ALTER TABLE [dbo].[historial_laboral]  WITH CHECK ADD FOREIGN KEY([empleado_id])
+REFERENCES [dbo].[empleados] ([empleado_id])
+GO
+USE [master]
+GO
+ALTER DATABASE [RecursosHumanos] SET  READ_WRITE 
+GO
